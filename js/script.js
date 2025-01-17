@@ -46,22 +46,59 @@ async function search(query) {
 
 // Visa filmer
 function displayMovies(movies, category) {
+
     const container = document.getElementById('movies-container');
+
     container.innerHTML = `<h2 class="text-center mb-4">${category} Movies</h2>`;
-    movies.forEach(movie => {
+
+    // Skapa varje film-element
+
+    movies.forEach((movie, index) => {
+
         const movieElement = document.createElement('div');
+
         movieElement.className = 'col-md-3 movie';
+
+        movieElement.style.opacity = 0; // Börjar osynligt
+
         movieElement.innerHTML = `
+
             <div class="card">
+
                 <img src="${IMAGE_BASE_URL}${movie.poster_path}" class="card-img-top" alt="${movie.title}">
+
                 <div class="card-body">
+
                     <h5 class="card-title">${movie.title}</h5>
+
                     <p class="card-text">Release Date: ${movie.release_date}</p>
+
                 </div>
+
             </div>
+
         `;
+
         container.appendChild(movieElement);
+
     });
+
+    anime({
+
+        targets: '.movie',
+
+        opacity: [0, 1],
+
+        translateY: [-50, 0], 
+
+        delay: anime.stagger(100), 
+
+        duration: 800, 
+
+        easing: 'easeOutQuad'
+
+    });
+
 }
 
 // Visa sökresultat
